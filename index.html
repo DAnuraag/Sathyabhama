@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>I Love You, Priya</title>
+  <meta name="description" content="A small thing I made, just for you." />
+  <meta name="theme-color" content="#292c39" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#story">Skip to content</a>
+
+  <!-- 1 · LOADER: a heart fills with the sunset gradient, then lifts away -->
+  <div class="loader" id="loader" role="status" aria-live="polite">
+    <svg class="loader__heart" viewBox="0 0 32 28" aria-hidden="true">
+      <defs>
+        <linearGradient id="sunsetFill" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0"    stop-color="var(--c-forest)" />
+          <stop offset="0.38" stop-color="var(--c-haze)" />
+          <stop offset="0.66" stop-color="var(--c-mountain)" />
+          <stop offset="1"    stop-color="var(--c-sun)" />
+        </linearGradient>
+        <clipPath id="heartClip"><path d="M16 27.5C4 19 0 12.5 0 8 0 3.5 3.5 0 8 0c3.5 0 6.5 2 8 5C17.500 2 20.500 0 24 0c4.500 0 8 3.500 8 8 0 4.500-4 11-16 19.500Z"/></clipPath>
+      </defs>
+      <path class="loader__outline" d="M16 27.5C4 19 0 12.5 0 8 0 3.5 3.5 0 8 0c3.5 0 6.5 2 8 5C17.500 2 20.500 0 24 0c4.500 0 8 3.500 8 8 0 4.500-4 11-16 19.500Z"/>
+      <g clip-path="url(#heartClip)"><rect class="loader__fill" x="0" y="0" width="32" height="28" fill="url(#sunsetFill)" /></g>
+    </svg>
+    <p class="loader__text"><span id="loaderPct">0</span>%  ·  <span class="loader__for"></span></p>
+  </div>
+
+  <!-- ART STAGE: fixed behind everything. Layers + UI interlock in one 3D scene. -->
+  <div class="stage" id="stage">
+    <div class="scene" id="scene"><div class="scene-3d" id="scene3d"></div></div>
+    <!-- colour grade: golden hour → pink sunset → purple dusk → night (opacity only) -->
+    <div class="tint tint--gold"   aria-hidden="true"></div>
+    <div class="tint tint--pink"   aria-hidden="true"></div>
+    <div class="tint tint--violet" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+  </div>
+
+  <div class="fx-particles" id="tsparticles" aria-hidden="true"></div>
+  <div class="hearts-near" id="heartsNear" aria-hidden="true"></div>
+  <div class="butterflies" id="butterflies" aria-hidden="true"></div>
+  <div class="kisses" id="kisses" aria-hidden="true"><i class="kisses__flash"></i></div>
+  <div class="cursor" id="cursor" aria-hidden="true"><i class="cursor__dot"></i><i class="cursor__ring"></i></div>
+
+  <!-- fixed UI -->
+  <button class="chip chip--music" id="musicBtn" type="button" aria-pressed="false" aria-label="Play music">
+    <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="chip__label">Music</span>
+  </button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <main id="content">
+    <!-- 2 · HERO (pinned) -->
+    <section class="hero" id="hero" aria-label="Welcome">
+      <div class="hero__ui" id="heroUi">
+        <p class="hero__subtitle" id="heroSubtitle"></p>
+        <a class="chip chip--scroll" id="scrollChip" href="#story"><span class="chip__label">Scroll down</span><i class="chip__arrow" aria-hidden="true"></i></a>
+      </div>
+    </section>
+
+    <!-- 3 · HOW THIS STARTED -->
+    <section class="story" id="story" aria-labelledby="storyTitle">
+      <header class="section-head story__head">
+        <h2 class="section-title" id="storyTitle" data-copy="storyTitle"></h2>
+      </header>
+      <div class="story__lines" id="storyLines"></div>
+    </section>
+
+    <!-- 4 · WHAT I REALLY LOVE ABOUT YOU -->
+    <section class="reasons" id="reasons" aria-labelledby="reasonsTitle">
+      <header class="section-head">
+        <p class="eyebrow" data-copy="reasonsEyebrow"></p>
+        <h2 class="section-title" id="reasonsTitle" data-copy="reasonsTitle"></h2>
+      </header>
+      <div class="reasons__leaves" id="reasonLeaves" aria-hidden="true"></div>
+      <ul class="reasons__trail" id="reasonGrid"></ul>
+      <div class="reasons__walk" id="reasonWalk" aria-hidden="true"></div>
+    </section>
+
+    <!-- 5 · OUR FUTURE: a pixel heart builds itself, pixel by pixel, while you scroll. Tap it. -->
+    <section class="future" id="future" aria-labelledby="futureTitle">
+      <div class="future__inner">
+        <div class="future__art">
+          <div class="future__aura" id="futureAura" aria-hidden="true"></div>
+          <div class="future__floaters" id="futureFloaters" aria-hidden="true"></div>
+          <button class="bheart" id="bheart" type="button" aria-label="Give the heart a squeeze">
+            <span class="bheart__m" id="bheartM"></span>
+          </button>
+          <p class="future__tap" id="futureTap" data-copy="futureTap" aria-live="polite"></p>
+        </div>
+        <div class="future__text">
+          <p class="eyebrow" data-copy="futureEyebrow"></p>
+          <h2 class="section-title future__title" id="futureTitle" data-copy="futureTitle"></h2>
+          <p class="future__body" id="futureBody" data-copy="futureBody"></p>
+          <ul class="future__chips" id="futureChips" aria-label="What we will do"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5b · MY SIDE OF IT: a deck of cards that deals itself out while you scroll; animals wander around the edges -->
+    <section class="notes" id="notes" aria-labelledby="notesTitle">
+      <div class="notes__stage" id="notesStage">
+        <div class="notes__fauna" id="notesFauna" aria-hidden="true"></div>
+        <header class="section-head notes__head">
+          <p class="eyebrow" data-copy="notesEyebrow"></p>
+          <h2 class="section-title" id="notesTitle" data-copy="notesTitle"></h2>
+        </header>
+        <div class="deck" id="deck" tabindex="0" role="group" aria-label="What I promise you: press Enter for the next card"></div>
+        <p class="notes__hint" id="notesHint" data-copy="notesHint"></p>
+        <p class="notes__count" id="notesCount" aria-hidden="true"></p>
+      </div>
+    </section>
+
+    <!-- 5d · PHOTOS: shown only when there are pictures in assets/photos/ -->
+    <section class="list-sec photos" id="photos" aria-labelledby="photosTitle" hidden>
+      <header class="section-head">
+        <p class="eyebrow" data-copy="photosEyebrow"></p>
+        <h2 class="section-title" id="photosTitle" data-copy="photosTitle"></h2>
+      </header>
+      <ul class="photos__grid" id="photoGrid"></ul>
+    </section>
+    <dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+      <figure class="lightbox__fig">
+        <img class="lightbox__img" id="lightboxImg" alt="" />
+        <figcaption class="lightbox__cap" id="lightboxCap"></figcaption>
+      </figure>
+      <div class="lightbox__bar">
+        <button type="button" class="lightbox__btn" id="lbPrev" aria-label="Previous photo">&larr; Prev</button>
+        <span class="lightbox__count" id="lbCount" aria-live="polite"></span>
+        <button type="button" class="lightbox__btn" id="lbNext" aria-label="Next photo">Next &rarr;</button>
+        <button type="button" class="lightbox__btn lightbox__btn--close" id="lbClose" aria-label="Close">Close</button>
+      </div>
+    </dialog>
+
+    <!-- 6 · THE LETTER: no text. Open it and kisses + hearts are thrown at the screen -->
+    <section class="letter" id="letter" aria-labelledby="letterTitle">
+      <header class="section-head">
+        <p class="eyebrow" data-copy="letterEyebrow"></p>
+        <h2 class="section-title" id="letterTitle" data-copy="letterTitle"></h2>
+      </header>
+      <div class="letter__stage" id="letterStage">
+        <div class="envelope" id="envelope">
+          <div class="envelope__back"><i class="envelope__glow" id="envGlow"></i></div>
+          <div class="envelope__front"></div>
+          <div class="envelope__flap" id="flap"></div>
+          <button class="seal" id="seal" type="button" aria-label="Break the wax seal and open the letter">
+            <svg viewBox="0 0 32 28" aria-hidden="true"><path d="M16 27.5C4 19 0 12.5 0 8 0 3.5 3.5 0 8 0c3.5 0 6.5 2 8 5C17.500 2 20.500 0 24 0c4.500 0 8 3.500 8 8 0 4.500-4 11-16 19.500Z"/></svg>
+          </button>
+        </div>
+        <p class="letter__hint" id="letterHint" data-copy="letterHint"></p>
+      </div>
+      <div class="letter__static" aria-hidden="true"><img src="assets/emoji/1f48b.svg" alt="" /><img src="assets/emoji/2764.svg" alt="" /><img src="assets/emoji/1f618.svg" alt="" /><img src="assets/emoji/1f496.svg" alt="" /><img src="assets/emoji/1f48b.svg" alt="" />
+      </div>
+    </section>
+
+    <!-- 7 · FINALE (night) -->
+    <section class="finale" id="finale" aria-labelledby="finaleTitle">
+      <header class="finale__head">
+        <p class="eyebrow" data-copy="finaleLabel"></p>
+        <h2 class="finale__title" id="finaleTitle" data-copy="finaleTitle"></h2>
+      </header>
+      <div class="counter glass" id="counter" role="timer" aria-live="off">
+        <p class="counter__label" data-copy="counterLabel"></p>
+        <div class="counter__row">
+          <div class="counter__cell"><b id="cDays">0</b><span id="cDaysU">days</span></div>
+          <div class="counter__cell"><b id="cHrs">0</b><span id="cHrsU">hrs</span></div>
+          <div class="counter__cell"><b id="cMin">0</b><span>min</span></div>
+          <div class="counter__cell"><b id="cSec">0</b><span>sec</span></div>
+        </div>
+      </div>
+      <button class="btn-love" id="loveBtn" type="button" aria-expanded="false" aria-controls="finalMessage">
+        <span data-copy="loveButton"></span>
+      </button>
+      <p class="final-message" id="finalMessage" role="status"></p>
+    </section>
+  </main>
+
+  <footer class="footer" id="footer">
+    <p>Made with love by Raaga</p>
+    <!-- Licences and credits for every artwork, icon, emoji and sprite used: see CREDITS.md -->
+  </footer>
+
+  <!-- the hearts that fill the screen after the final click (+ the pink veil) -->
+  <div class="rise" id="rise" aria-hidden="true"><div class="rise__veil" id="riseVeil"></div></div>
+
+  <!-- the night page: a Milky Way over the hills, shown after the hearts -->
+  <section class="night" id="night" role="dialog" aria-modal="true" aria-labelledby="nightTitle" hidden>
+    <div class="night__world" id="nightWorld" aria-hidden="true"></div>
+    <canvas class="night__fx" id="nightFx" aria-hidden="true"></canvas>
+    <div class="night__copy">
+      <h2 class="night__title" id="nightTitle" data-copy="nightTitle"></h2>
+      
+    </div>
+    <button class="night__shy" id="nightShy" type="button" aria-live="polite"><span class="shy__in"><span class="shy__text" data-copy="nightShy"></span><img class="shy__emoji" src="./assets/emoji/shy-blush.png" alt="" width="40" height="41" draggable="false"></span></button>
+    <p class="night__hint" id="nightHint" data-copy="nightHint"></p>
+    <button class="night__back" id="nightBack" type="button" data-copy="nightBack"></button>
+    <p class="night__credit" id="nightCredit"></p>
+  </section>
+
+  <script type="module" src="./js/main.js"></script>
+  <!-- if the app script never starts (the raw source was uploaded instead of the built site, or the file was opened by double-click) say so instead of sitting at 0% -->
+  <script>setTimeout(function () { if (!window.__booted) { var t = document.querySelector('.loader__text'); if (t) t.textContent = 'The site could not start. It has to be served from the built folder (docs/) over http, see README: Put it on GitHub.'; } }, 7000);</script>
+</body>
+</html>
+
