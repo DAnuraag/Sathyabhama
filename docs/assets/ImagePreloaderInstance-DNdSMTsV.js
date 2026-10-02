@@ -1,0 +1,1 @@
+import{E as e,T as t,w as n}from"./browser-beDYFmGc.js";var r=new WeakMap,i=new WeakMap,a=class{constructor(n,a){e(this,r,void 0),e(this,i,void 0),t(i,this,n),t(r,this,a)}destroy(){n(i,this).images?.delete(n(r,this))}};export{a as ImagePreloaderInstance};
