@@ -1,0 +1,24 @@
+{
+  "palette": {
+    "skyTop": "#fcddd9",
+    "skyBottom": "#f7cdc6",
+    "mountain": "#e6b8c6",
+    "hazeForest": "#737fb2",
+    "forest": "#4a4c73",
+    "shadow": "#292c39",
+    "ground": "#516781",
+    "sun": "#ff816c"
+  },
+  "fills": {
+    "01-sky": "#fcddd9",
+    "02-sky-streaks": null,
+    "03-mountains-far": "#f7cdc6",
+    "04-mountains-near": "#e6b8c6",
+    "05-forest-haze": "#737fb2",
+    "06-forest-mid": "#4a4c73",
+    "07-pines-big": "#292c39",
+    "08-meadow-edge": "#4a4c73",
+    "09-ground": "#516781",
+    "10-foreground-trees": null
+  }
+}
